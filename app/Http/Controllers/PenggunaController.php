@@ -59,7 +59,7 @@ class PenggunaController extends Controller
      */
     public function edit(Pengguna $pengguna)
     {
-        //
+        return view('admin.pengguna.update-pengguna', compact('pengguna'));
     }
 
     /**
@@ -67,7 +67,14 @@ class PenggunaController extends Controller
      */
     public function update(UpdatePenggunaRequest $request, Pengguna $pengguna)
     {
-        //
+         // Validasi data input
+         $validatedData = $request->validated();
+
+         // Perbarui data pengguna
+         $pengguna->update($validatedData);
+
+         // Redirect ke index pengguna dengan pesan sukses
+         return redirect()->route('pengguna.index')->with('success', 'Data Pengguna berhasil diperbarui');
     }
 
     /**
@@ -75,6 +82,8 @@ class PenggunaController extends Controller
      */
     public function destroy(Pengguna $pengguna)
     {
-        //
+        $pengguna->delete();
+
+        return redirect()->route('pengguna.index')->with('success', 'Akun Pengguna Berhasil Dihapus');
     }
 }
