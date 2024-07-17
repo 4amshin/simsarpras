@@ -100,6 +100,16 @@
                                                                 <i class="fa-solid fa-trash-can"></i>
                                                             </button>
                                                         </form>
+                                                        <div style="width: 10px;"></div>
+
+                                                        <!--Ajukan Perbaikan/Pergantian Barang-->
+                                                        @if ($barang->kondisi_barang == 'rusak')
+                                                            <button type="button" class="btn btn-info" data-toggle="modal"
+                                                                data-target="#modalAjukan">
+                                                                <i class="fa-solid fa-file-arrow-up"></i>
+                                                            </button>
+                                                        @endif
+
                                                     </div>
                                                 </td>
                                             @endcan
@@ -128,4 +138,62 @@
             </div>
         </div>
     </section>
+
+    <!-- Modal Ajukan Perbaikan/Pergantian -->
+    <div class="modal fade" id="modalAjukan" tabindex="-1" role="dialog" aria-labelledby="modalAjukanTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAjukanTitle">Ajukan Perbaikan/Pergantian Barang</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Pilih jenis pengajuan yang Anda inginkan:</p>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" class="btn btn-info btn-lg btn-block mb-2"
+                                onclick="ajukanPengajuan('{{ $barang->id }}', 'perbaikan')">Ajukan Perbaikan</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-lg btn-block"
+                                onclick="ajukanPengajuan('{{ $barang->id }}', 'pergantian')">Ajukan Pergantian
+                                Barang</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('customJs')
+    <script>
+        function ajukanPengajuan(barangId, jenisPengajuan) {
+            // Kirim jenis pengajuan ke fungsi pengajuan() di controller
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('barang.pengajuan') }}',
+                data: {
+                    barang_id: barangId,
+                    jenis_pengajuan: jenisPengajuan,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Handle response jika diperlukan
+                    console.log(response);
+                    // Sembunyikan modal setelah berhasil
+                    $('#modalAjukan').modal('hide');
+                },
+                error: function(xhr, status, error) {
+                    // Handle error jika diperlukan
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+    </script>
+@endpush
+
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarangRequest;
 use App\Http\Requests\UpdateBarangRequest;
+use App\Models\Pengajuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -46,7 +47,7 @@ class BarangController extends Controller
             $validatedData['kode_barang'] = $this->generateKodeBarang();
 
             // Simpan data ke database
-            $barang = Barang::create($validatedData);
+            Barang::create($validatedData);
 
             return redirect()->route('barang.index')->with('success', 'Data Barang berhasil ditambahkan');
         } catch (\Exception $e) {
@@ -54,6 +55,32 @@ class BarangController extends Controller
             return redirect()->back()->withInput()->withErrors(['kode_barang' => 'Kode barang sudah terdaftar.'])->with('error', 'Gagal menambahakan data barang');
         }
     }
+
+    public function pengajuan(Request $request)
+{
+    // Validasi request
+    $request->validate([
+        'barang_id' => 'required|exists:barangs,id',
+        'jenis_pengajuan' => 'required|in:perbaikan,pergantian',
+    ]);
+
+    try {
+        // Simpan data pengajuan ke dalam tabel pengajuan
+        Pengajuan::create([
+            'barang_id' => $request->barang_id,
+            'pengguna_id' => auth()->user()->id,
+            'tanggal_pengajuan' => now(),
+            'jenis_pengajuan' => $request->jenis_pengajuan,
+        ]);
+
+        // Respon sukses jika diperlukan
+        return response()->json(['success' => 'Pengajuan berhasil disimpan'], 200);
+    } catch (\Exception $e) {
+        // Tangani error jika terjadi
+        return response()->json(['error' => 'Terjadi kesalahan saat menyimpan pengajuan'], 500);
+    }
+}
+
 
     private function generateKodeBarang()
     {

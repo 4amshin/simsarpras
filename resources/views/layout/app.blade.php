@@ -66,11 +66,13 @@
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
 
     <!-- JS Libraies -->
+    <script src="{{ asset('assets/modules/prism/prism.js') }}"></script>
+    <script src="{{ asset('assets/js/page/bootstrap-modal.js') }}"></script>
     @stack('customJs')
 
-     <!-- JS Sweet Alert -->
-     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-     <script src="{{ asset('assets/js/page/modules-sweetalert.js') }}"></script>
+    <!-- JS Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="{{ asset('assets/js/page/modules-sweetalert.js') }}"></script>
 
     <!-- Template JS File -->
     <script src="{{ asset('assets/js/scripts.js') }}"></script>

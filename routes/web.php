@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,5 +31,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*---------------------------------BARANG-----------------------------------*/
     Route::resource('barang', BarangController::class);
+    Route::post('/pengajuan', [BarangController::class, 'pengajuan'])->name('barang.pengajuan');
+
+
+
+     /*---------------------------------PENGAJUAN-----------------------------------*/
+     Route::resource('pengajuan', PengajuanController::class);
 
 });

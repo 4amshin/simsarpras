@@ -33,6 +33,15 @@
                 </li>
             @endcan
 
+            <!--Pengajuan-->
+            <li class="nav-item {{ Request::is('pengajuan*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('pengajuan.index') }}">
+                    <i class="fas fa-box"></i></i> <span>Daftar Barang</span>
+                </a>
+            </li>
+
+            <i class="fa-solid fa-file-invoice"></i>
+
         @show
     </ul>
 
