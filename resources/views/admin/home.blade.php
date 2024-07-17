@@ -21,7 +21,7 @@
                                 if ($user->role === 'admin') {
                                     $role = 'Admin';
                                 } else {
-                                    $role = 'Pegawai';
+                                    $role = 'Beranda';
                                 }
                             @endphp
                             <h2>Halo, {{ $name }}</h2>
@@ -32,6 +32,10 @@
             </div>
 
 
+        </div>
+
+        <div class="row">
+            <img src="{{ asset('assets/img/uncp.png') }}" height="450" alt="" srcset="">
         </div>
     </section>
 @endsection
