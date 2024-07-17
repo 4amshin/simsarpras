@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,5 +25,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*---------------------------------PENGGUNA-----------------------------------*/
     Route::resource('pengguna', PenggunaController::class);
+
+
+
+    /*---------------------------------BARANG-----------------------------------*/
+    Route::resource('barang', BarangController::class);
 
 });

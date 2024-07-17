@@ -24,6 +24,13 @@
                         <i class="fas fa-users-gear"></i></i> <span>Kelola Pengguna</span>
                     </a>
                 </li>
+
+                <!--Barang-->
+                <li class="nav-item {{ Request::is('barang*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('barang.index') }}">
+                        <i class="fas fa-box"></i></i> <span>Daftar Barang</span>
+                    </a>
+                </li>
             @endcan
 
         @show

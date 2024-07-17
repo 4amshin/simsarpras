@@ -1,12 +1,12 @@
 @extends('layout.app')
 
-@section('title', 'Daftar Bus')
+@section('title', 'Daftar Barang')
 
 @section('content')
     <section class="section">
         <!--Header-->
         <div class="section-header">
-            <h1>Daftar Bus</h1>
+            <h1>Daftar Barang</h1>
         </div>
 
         <!--Body-->
@@ -19,10 +19,10 @@
                         <div class="card-body">
 
                             <!--Tombol-->
-                            @can('super-user')
-                                <!--Tombol Tambah Bus-->
+                            @can('admin-only')
+                                <!--Tombol Tambah Barang-->
                                 <div class="float-left">
-                                    <a href="{{ route('bus.create') }}" class="btn btn-primary btn-lg">Tambah Bus</a>
+                                    <a href="{{ route('barang.create') }}" class="btn btn-primary btn-lg">Tambah Barang</a>
                                 </div>
                             @endcan
 
@@ -46,49 +46,54 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <th>No</th>
-                                        <th>Nomor Plat Bus</th>
-                                        <th>Perwakilan</th>
-                                        <th>Kapasitas</th>
-                                        <th>Kursi VIP</th>
-                                        <th>Kursi Premium</th>
-                                        @can('super-user')
+                                        <th>Kode Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Lokasi Barang</th>
+                                        <th>Kondisi Barang</th>
+                                        <th>Keterangan</th>
+                                        @can('admin-only')
                                             <th>Aksi</th>
                                         @endcan
                                     </tr>
 
-                                    @forelse ($daftarBus as $index => $bus)
+                                    @forelse ($daftarBarang as $index => $barang)
                                         <tr>
                                             <td>
-                                                {{ $index + $daftarBus->firstItem() }}
+                                                {{ $index + $daftarBarang->firstItem() }}
                                             </td>
                                             <td>
-                                                {{ $bus->nomor_plat }}
+                                                <span class="badge badge-light">{{ $barang->kode_barang }}</span>
                                             </td>
                                             <td>
-                                                {{ $bus->lokasi_perwakilan }}
+                                                {{ $barang->nama_barang }}
                                             </td>
                                             <td>
-                                                {{ $bus->kapasitas }} Kursi
+                                                {{ $barang->lokasi_barang }}
+                                            </td>
+                                            <td>
+                                                @if ($barang->kondisi_barang == 'bagus')
+                                                    <span class="badge badge-success">Bagus</span>
+                                                @elseif ($barang->kondisi_barang == 'rusak')
+                                                    <span class="badge badge-danger">Rusak</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $barang->keterangan }}
                                             </td>
 
-                                            <td>
-                                                Rp{{ number_format($bus->harga_kursi_vip, 0, ',', '.') }}
-                                            </td>
-                                            <td>
-                                                Rp{{ number_format($bus->harga_kursi_premium, 0, ',', '.') }}
-                                            </td>
-
-                                            @can('super-user')
+                                            @can('admin-only')
                                                 <td>
                                                     <div class="row">
                                                         <!--Tombol Update-->
-                                                        <a href="{{ route('bus.edit', $bus->id) }}" class="btn btn-primary">
+                                                        <a href="{{ route('barang.edit', $barang->id) }}"
+                                                            class="btn btn-primary">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
                                                         <div style="width: 10px;"></div>
 
                                                         <!--Tombol Hapus-->
-                                                        <form action="{{ route('bus.destroy', $bus->id) }}" method="POST">
+                                                        <form action="{{ route('barang.destroy', $barang->id) }}"
+                                                            method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="btn btn-danger" id="delete-confirm">
@@ -112,7 +117,7 @@
                             <div class="float-right">
                                 <nav>
                                     <ul class="pagination">
-                                        {{ $daftarBus->withQueryString()->links() }}
+                                        {{ $daftarBarang->withQueryString()->links() }}
                                     </ul>
                                 </nav>
                             </div>
