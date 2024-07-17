@@ -17,6 +17,7 @@
                 </a>
             </li>
 
+            <li class="menu-header">Data</li>
             @can('admin-only')
                 <!--Kelola Pengguna-->
                 <li class="nav-item {{ Request::is('pengguna*') ? 'active' : '' }}">
@@ -31,14 +32,23 @@
                         <i class="fas fa-box"></i></i> <span>Daftar Barang</span>
                     </a>
                 </li>
+
+                <!--Jadwal Jaga-->
+                <li class="nav-item {{ Request::is('jadwal*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('jadwal.index') }}">
+                        <i class="fas fa-calendar-check"></i></i> <span>Jadwal Jaga</span>
+                    </a>
+                </li>
             @endcan
 
+            <li class="menu-header">Pengajuan</li>
             <!--Pengajuan-->
             <li class="nav-item {{ Request::is('pengajuan*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('pengajuan.index') }}">
                     <i class="fas fa-file-invoice"></i></i> <span>Daftar Pengajuan</span>
                 </a>
             </li>
+
             <!--Riwaayat Pengajuan-->
             <li class="nav-item {{ Request::is('riwayat-pengajuan*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('pengajuan.riwayat') }}">

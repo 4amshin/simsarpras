@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\JadwalJagaController;
 use App\Http\Controllers\PengajuanController;
 use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
@@ -31,6 +32,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*---------------------------------BARANG-----------------------------------*/
     Route::resource('barang', BarangController::class);
+
+
+
+    /*---------------------------------JADWAL JAGA-----------------------------------*/
+    Route::resource('jadwal', JadwalJagaController::class);
 
 
 

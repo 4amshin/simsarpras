@@ -14,10 +14,10 @@ class PenggunaSeeder extends Seeder
     public function run(): void
     {
         Pengguna::factory()->create([
-            'nama' => 'Admin Delta',
+            'nama' => 'Admin Alfa',
             'nomor_telepon' => '+62895635090134',
             'role' => 'admin',
-            'email' => 'delta@simsarpras.id',
+            'email' => 'alfa@simsarpras.id',
             'password' => 'password',
         ]);
 
@@ -26,6 +26,14 @@ class PenggunaSeeder extends Seeder
             'nomor_telepon' => '+62895635090134',
             'role' => 'admin',
             'email' => 'beta@simsarpras.id',
+            'password' => 'password',
+        ]);
+
+        Pengguna::factory()->create([
+            'nama' => 'Admin Delta',
+            'nomor_telepon' => '+62895635090134',
+            'role' => 'admin',
+            'email' => 'delta@simsarpras.id',
             'password' => 'password',
         ]);
 
