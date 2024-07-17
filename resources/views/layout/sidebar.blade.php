@@ -36,11 +36,15 @@
             <!--Pengajuan-->
             <li class="nav-item {{ Request::is('pengajuan*') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('pengajuan.index') }}">
-                    <i class="fas fa-box"></i></i> <span>Daftar Barang</span>
+                    <i class="fas fa-file-invoice"></i></i> <span>Daftar Pengajuan</span>
                 </a>
             </li>
-
-            <i class="fa-solid fa-file-invoice"></i>
+            <!--Riwaayat Pengajuan-->
+            <li class="nav-item {{ Request::is('riwayat-pengajuan*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('pengajuan.riwayat') }}">
+                    <i class="fas fa-clock-rotate-left"></i></i> <span>Riwayat Pengajuan</span>
+                </a>
+            </li>
 
         @show
     </ul>

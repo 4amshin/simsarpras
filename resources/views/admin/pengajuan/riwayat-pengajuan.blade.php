@@ -1,25 +1,22 @@
 @extends('layout.app')
 
-@section('title', 'Daftar')
-
+@section('title', 'Riwayat Pengajuan')
 
 @section('content')
     <section class="section">
         <!--Header-->
         <div class="section-header">
-            Daftar Tiket
+            <h1>Riwayat Pengajuan</h1>
         </div>
 
         <!--Body-->
         <div class="section-body">
-             <!--Alert Notification-->
-             @include('layout.alert-notif')
+            @include('layout.alert-notif')
 
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-
                             <!--Pencarian-->
                             <div class="float-right">
                                 <form method="GET">
@@ -40,51 +37,44 @@
                                 <table class="table table-striped">
                                     <tr>
                                         <th>No</th>
-                                        @can('super-user')
-                                            <th>Penumpang</th>
-                                            <th>Nomor Telepon</th>
-                                        @endcan
-                                        <th>Bus</th>
-                                        <th>Rute</th>
-                                        <th>Titik Penjemputan</th>
-                                        <th>Tujuan</th>
-                                        <th>Waktu Keberangkatan</th>
-                                        <th>Kursi</th>
+                                        <th>Kode Barang</th>
+                                        <th>Nama Barang</th>
+                                        <th>Nama Pengaju</th>
+                                        <th>Tanggal Pengajuan</th>
+                                        <th>Jenis Pengajuan</th>
+                                        <th>Status</th>
                                     </tr>
 
-                                    @forelse ($daftarTiket as $index => $tiket)
+                                    @forelse ($riwayatPengajuan as $index => $pengajuan)
                                         <tr>
                                             <td>
-                                                {{ $index + $daftarTiket->firstItem() }}
-                                            </td>
-                                            @can('super-user')
-                                                <td>
-                                                    {{ $tiket->nama_penumpang }}
-                                                </td>
-                                                <td>
-                                                    {{ $tiket->nomor_telepon }}
-                                                </td>
-                                            @endcan
-                                            <td>
-                                                {{ $tiket->jadwalBerangkat->bus->nama_bus }}
+                                                {{ $index + $riwayatPengajuan->firstItem() }}
                                             </td>
                                             <td>
-                                                {{ $tiket->jadwalBerangkat->rute }}
+                                                <span class="badge badge-light">{{ $pengajuan->barang->kode_barang }}</span>
                                             </td>
                                             <td>
-                                                {{ $tiket->titik_penjemputan }}
+                                                {{ $pengajuan->barang->nama_barang }}
                                             </td>
                                             <td>
-                                                {{ $tiket->tujuan }}
+                                                {{ $pengajuan->pengguna->nama }}
                                             </td>
                                             <td>
-                                                {{ formatWaktuBerangkat($tiket->jadwalBerangkat->waktu_berangkat) }}
+                                                {{ \Carbon\Carbon::parse($pengajuan->tanggal_pengajuan)->translatedFormat('d F Y') }}
                                             </td>
                                             <td>
-                                                {{ implode(', ', json_decode($tiket->kursi_diPesan)) }}
+                                                @if ($pengajuan->jenis_pengajuan == 'perbaikan')
+                                                    <span class="badge badge-info">Perbaikan</span>
+                                                @elseif ($pengajuan->jenis_pengajuan == 'pergantian')
+                                                    <span class="badge badge-primary">Pergantian</span>
+                                                @endif
                                             </td>
                                             <td>
-                                                <a href="{{ route('tiket', $tiket->id) }}" class="btn btn-primary">Tiket</a>
+                                                @if ($pengajuan->status_pengajuan == 'disetujui')
+                                                    <span class="badge badge-success">Disetujui</span>
+                                                @elseif ($pengajuan->status_pengajuan == 'ditolak')
+                                                    <span class="badge badge-danger">Ditolak</span>
+                                                @endif
                                             </td>
                                         </tr>
                                     @empty
@@ -100,7 +90,7 @@
                             <div class="float-right">
                                 <nav>
                                     <ul class="pagination">
-                                        {{ $daftarTiket->withQueryString()->links() }}
+                                        {{ $riwayatPengajuan->withQueryString()->links() }}
                                     </ul>
                                 </nav>
                             </div>

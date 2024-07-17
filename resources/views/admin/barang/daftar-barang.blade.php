@@ -86,7 +86,7 @@
                                                     <div class="row">
                                                         <!--Tombol Update-->
                                                         <a href="{{ route('barang.edit', $barang->id) }}"
-                                                            class="btn btn-primary">
+                                                            class="btn btn-primary" data-toggle="tooltip" data-original-title="Update Barang">
                                                             <i class="fa-solid fa-pen-to-square"></i>
                                                         </a>
                                                         <div style="width: 10px;"></div>
@@ -96,7 +96,7 @@
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger" id="delete-confirm">
+                                                            <button type="submit" class="btn btn-danger" id="delete-confirm" data-toggle="tooltip" data-original-title="Hapus Barang">
                                                                 <i class="fa-solid fa-trash-can"></i>
                                                             </button>
                                                         </form>
@@ -106,7 +106,7 @@
                                                         @if ($barang->kondisi_barang == 'rusak')
                                                             <button type="button" class="btn btn-info" data-toggle="modal"
                                                                 data-target="#modalAjukan">
-                                                                <i class="fa-solid fa-file-arrow-up"></i>
+                                                                <i class="fa-solid fa-file-arrow-up" data-toggle="tooltip" data-original-title="Ajukan Perbaikan/Pergantian"></i>
                                                             </button>
                                                         @endif
 
@@ -175,7 +175,7 @@
             // Kirim jenis pengajuan ke fungsi pengajuan() di controller
             $.ajax({
                 type: 'POST',
-                url: '{{ route('barang.pengajuan') }}',
+                url: '{{ route('pengajuan.perbaikan') }}',
                 data: {
                     barang_id: barangId,
                     jenis_pengajuan: jenisPengajuan,

@@ -31,11 +31,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*---------------------------------BARANG-----------------------------------*/
     Route::resource('barang', BarangController::class);
-    Route::post('/pengajuan', [BarangController::class, 'pengajuan'])->name('barang.pengajuan');
 
 
 
-     /*---------------------------------PENGAJUAN-----------------------------------*/
-     Route::resource('pengajuan', PengajuanController::class);
+    /*---------------------------------PENGAJUAN-----------------------------------*/
+    Route::resource('pengajuan', PengajuanController::class);
+    Route::get('/riwayat-pengajuan', [PengajuanController::class, 'riwayat'])->name('pengajuan.riwayat');
+    Route::post('/pengajuan-perbaikan', [BarangController::class, 'pengajuan'])->name('pengajuan.perbaikan');
+    Route::get('/pengajuan/terima/{pengajuan}', [PengajuanController::class, 'terimaPengajuan'])->name('pengajuan.terima');
+    Route::get('/pengajuan/tolak/{pengajuan}', [PengajuanController::class, 'tolakPengajuan'])->name('pengajuan.tolak');
+
 
 });
