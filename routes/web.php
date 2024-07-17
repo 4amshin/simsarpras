@@ -1,18 +1,28 @@
 <?php
 
+use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
+});
+
+
+/*---------------------------------ROUTE TERAUTENTIKASI-----------------------------------*/
+Route::middleware(['auth', 'verified'])->group(function () {
+
+    Route::get('home', function () {
+        return view('admin.home');
+    })->name('home');
+
+    Route::get('profile', function () {
+        return view('auth.profile');
+    })->name('profile');
+
+
+    /*---------------------------------PENGGUNA-----------------------------------*/
+    Route::resource('pengguna', PenggunaController::class);
+
 });
