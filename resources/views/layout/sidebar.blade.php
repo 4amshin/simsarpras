@@ -17,12 +17,14 @@
                 </a>
             </li>
 
-            <!--Kelola Pengguna-->
-            <li class="nav-item {{ Request::is('pengguna*') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('pengguna.index') }}">
-                    <i class="fas fa-users-gear"></i></i> <span>Kelola Pengguna</span>
-                </a>
-            </li>
+            @can('admin-only')
+                <!--Kelola Pengguna-->
+                <li class="nav-item {{ Request::is('pengguna*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('pengguna.index') }}">
+                        <i class="fas fa-users-gear"></i></i> <span>Kelola Pengguna</span>
+                    </a>
+                </li>
+            @endcan
 
         @show
     </ul>

@@ -17,7 +17,7 @@
                 <form method="POST" action="{{ route('pengguna.store') }}">
                     @csrf
                     <!--Role Pengguna-->
-                    <input type="hidden" name="role" id="role" value="pengguna">
+                    <input type="hidden" name="role" id="role" value="admin">
 
                     <!--Nama & Nomor Telepon-->
                     <div class="row">

@@ -20,7 +20,7 @@
                         <div class="card-body">
 
                             <!--Tombol-->
-                            @can('super-user')
+                            @can('admin-only')
                                 <!--Tombol Tambah Pengguna-->
                                 <div class="float-left">
                                     <a href="{{ route('pengguna.create') }}" class="btn btn-primary btn-lg">Tambah Pengguna</a>
@@ -51,7 +51,7 @@
                                         <th>Nomor Telepon</th>
                                         <th>Email</th>
                                         <th>Password</th>
-                                        @can('super-user')
+                                        @can('admin-only')
                                             <th>Aksi</th>
                                         @endcan
                                     </tr>
@@ -78,7 +78,7 @@
                                                 </div>
                                             </td>
 
-                                            @can('super-user')
+                                            @can('admin-only')
                                                 <td>
                                                     <div class="row">
                                                         <!--Tombol Update-->

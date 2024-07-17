@@ -5,15 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Pengguna;
 use App\Http\Requests\StorePenggunaRequest;
 use App\Http\Requests\UpdatePenggunaRequest;
+use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $daftarPengguna = Pengguna::when($request->input('search'), function ($query, $search) {
+            $query->where('nama', 'like', '%' . $search . '%')
+                ->orWhere('nomor_telepon', 'like', '%' . $search . '%')
+                ->orWhere('email', 'like', '%' . $search . '%');
+        })->orderBy('created_at', 'desc')->paginate(5);
+
+        return view('admin.pengguna.daftar-pengguna', compact('daftarPengguna'));
     }
 
     /**
@@ -21,7 +28,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pengguna.tambah-pengguna');
     }
 
     /**
@@ -29,7 +36,14 @@ class PenggunaController extends Controller
      */
     public function store(StorePenggunaRequest $request)
     {
-        //
+        // Validasi data input
+        $validatedData = $request->validated();
+
+        //simpan data ke database
+        Pengguna::create($validatedData);
+
+        return redirect()->route('pengguna.index')->with('success', 'Pengguna Baru berhasil ditambahkan');
+
     }
 
     /**
