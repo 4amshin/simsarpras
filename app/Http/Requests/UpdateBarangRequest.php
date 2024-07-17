@@ -11,7 +11,7 @@ class UpdateBarangRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateBarangRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama_barang' => 'required|string',
+            'lokasi_barang' => 'required|string',
+            'kondisi_barang' => 'required|string',
+            'keterangan' => 'required|string',
         ];
     }
 }

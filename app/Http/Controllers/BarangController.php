@@ -86,7 +86,14 @@ class BarangController extends Controller
      */
     public function update(UpdateBarangRequest $request, Barang $barang)
     {
-        //
+        // Validasi data input
+        $validatedData = $request->validated();
+
+        // Perbarui data barang
+        $barang->update($validatedData);
+
+        // kembali ke halaman daftar barang
+        return redirect()->route('barang.index')->with('success', 'Data Barang berhasil diperbarui');
     }
 
     /**
@@ -94,6 +101,8 @@ class BarangController extends Controller
      */
     public function destroy(Barang $barang)
     {
-        //
+        $barang->delete();
+
+        return redirect()->route('barang.index')->with('success', 'Data Barang Berhasil Dihapus');
     }
 }
