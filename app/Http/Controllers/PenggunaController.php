@@ -23,6 +23,24 @@ class PenggunaController extends Controller
         return view('admin.pengguna.daftar-pengguna', compact('daftarPengguna'));
     }
 
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $pengguna = Pengguna::where('email', $user->email)->first();
+
+        //Validasi Data
+        $validatedData = $request->validate([
+            'nama' => 'required|string',
+            'nomor_telepon' => 'required|string',
+            'password' => 'required|string',
+        ]);
+
+        //Perbarui data Pengugna
+        $pengguna->update($validatedData);
+
+        return redirect()->back()->with('success', 'Profil Berhasil diPerbarui');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -67,14 +85,14 @@ class PenggunaController extends Controller
      */
     public function update(UpdatePenggunaRequest $request, Pengguna $pengguna)
     {
-         // Validasi data input
-         $validatedData = $request->validated();
+        // Validasi data input
+        $validatedData = $request->validated();
 
-         // Perbarui data pengguna
-         $pengguna->update($validatedData);
+        // Perbarui data pengguna
+        $pengguna->update($validatedData);
 
-         // Redirect ke index pengguna dengan pesan sukses
-         return redirect()->route('pengguna.index')->with('success', 'Data Pengguna berhasil diperbarui');
+        // Redirect ke index pengguna dengan pesan sukses
+        return redirect()->route('pengguna.index')->with('success', 'Data Pengguna berhasil diperbarui');
     }
 
     /**

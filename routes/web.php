@@ -27,6 +27,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     /*---------------------------------PENGGUNA-----------------------------------*/
     Route::resource('pengguna', PenggunaController::class);
+    Route::post('profile/update', [PenggunaController::class, 'updateProfile'])->name('profile.update');
 
 
 

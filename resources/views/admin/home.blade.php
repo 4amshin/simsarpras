@@ -30,12 +30,12 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         <div class="row">
-            <img src="{{ asset('assets/img/uncp.png') }}" height="450" alt="" srcset="">
+            <div class="col-12 text-center">
+                <img src="{{ asset('assets/img/uncp.png') }}" height="350" alt="" srcset="">
+            </div>
         </div>
     </section>
 @endsection

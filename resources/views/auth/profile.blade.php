@@ -22,7 +22,7 @@
                 <div class="col-lg-12 card mb-4 ">
                     <div class="card-body">
                         <!-- Pastikan hanya ada satu atribut action dan method -->
-                        <form method="POST" action="">
+                        <form method="POST" action="{{ route('profile.update') }}">
                             @csrf
 
                             <!--Nama-->
